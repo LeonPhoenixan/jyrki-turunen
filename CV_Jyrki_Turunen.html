@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jyrki Turunen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel-bg:       #080d14;
+    --steel-surface:  #0c1420;
+    --steel-raised:   #101d2e;
+    --steel-blue:     #112238;
+    --steel-blue-m:   #163050;
+    --emerald-dark:   #0d2818;
+    --emerald:        #145230;
+    --emerald-light:  #1e7a47;
+    --emerald-bright: #34c478;
+    --silver:         #c8d8e4;
+    --silver-bright:  #e8f0f6;
+    --silver-dim:     #90aaba;
+    --silver-line:    rgba(200,216,228,0.18);
+    --silver-line-m:  rgba(200,216,228,0.35);
+    --text-primary:   #e4eef6;
+    --text-secondary: #a8c4d4;
+    --text-muted:     #7a9db0;
+    --accent-em:      #1e7a47;
+    --accent-edge:    #6ab8d8;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: #050a10;
+    font-family: 'Jost', sans-serif;
+    color: var(--text-primary);
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--steel-surface);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--silver-line);
+  }
+
+  /* Edge accent lines — left side vertical */
+  .edge-accent {
+    position: absolute;
+    left: 0; top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg,
+      var(--emerald-bright) 0%,
+      var(--accent-edge) 40%,
+      var(--emerald) 70%,
+      transparent 100%
+    );
+    z-index: 5;
+  }
+
+  /* Top rule — sharp two-tone */
+  .rule-top {
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--emerald-bright) 0%,
+      var(--accent-edge) 40%,
+      var(--silver-bright) 60%,
+      var(--accent-edge) 75%,
+      transparent 100%
+    );
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: relative;
+    background: linear-gradient(150deg,
+      var(--steel-blue) 0%,
+      var(--emerald-dark) 55%,
+      var(--steel-bg) 100%
+    );
+    padding: 52px 48px 44px 52px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  /* subtle grid overlay */
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(176,190,200,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(176,190,200,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 70% at 85% 40%, rgba(30,122,71,0.14) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+
+
+  h1.name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 0.95;
+    color: var(--silver-bright);
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 2;
+  }
+
+  .name-role {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 13px;
+    letter-spacing: 0.38em;
+    color: var(--accent-edge);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .header-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 30px;
+    position: relative;
+    z-index: 2;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .contact-strip { display: flex; gap: 28px; flex-wrap: wrap; }
+
+  .contact-item { display: flex; flex-direction: column; gap: 3px; }
+
+  .c-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: var(--silver-dim);
+    text-transform: uppercase;
+  }
+
+  .c-val {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--silver);
+  }
+
+  .avail-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--emerald-bright);
+    border: 1px solid rgba(30,122,71,0.5);
+    padding: 5px 14px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(13,40,24,0.5);
+  }
+
+  .avail-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--emerald-bright);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--emerald-light), var(--accent-edge), transparent);
+    opacity: 0.4;
+  }
+
+  /* ── BODY ── */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 256px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .main-col {
+    padding: 40px 40px 48px 52px;
+    border-right: 1px solid var(--silver-line);
+  }
+
+  .side-col {
+    padding: 40px 32px 48px;
+    background: rgba(8,13,20,0.3);
+  }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 36px; }
+
+  .sh {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* Two-tone corner mark */
+  .sh-mark {
+    position: relative;
+    width: 10px; height: 10px;
+    flex-shrink: 0;
+  }
+  .sh-mark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-top: 2px solid var(--emerald-bright);
+    border-left: 2px solid var(--emerald-bright);
+  }
+  .sh-mark::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--accent-edge);
+  }
+
+  .sh h2 {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--silver-dim);
+    font-weight: 400;
+  }
+
+  .sh::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--silver-line);
+  }
+
+  /* ── PROFILE ── */
+  .profile-p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.85;
+    color: var(--text-primary);
+    border-left: 2px solid var(--emerald-light);
+    padding-left: 16px;
+  }
+
+  /* ── EXPERIENCE ── */
+  .job {
+    margin-bottom: 26px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--silver-line);
+  }
+  .job:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+  .job-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+  }
+
+  .job-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--silver-bright);
+    letter-spacing: 0.02em;
+  }
+
+  .job-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--silver-dim);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .job-co {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--emerald-bright);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .job-p {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--text-primary);
+    font-weight: 300;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 9px;
+    color: var(--accent-edge);
+    border: 1px solid rgba(74,154,184,0.25);
+    text-transform: uppercase;
+    background: rgba(74,154,184,0.04);
+  }
+
+  /* ── SKILLS ── */
+  .skill-row { margin-bottom: 13px; }
+  .skill-top { display: flex; justify-content: space-between; margin-bottom: 5px; }
+  .skill-name { font-size: 12.5px; font-weight: 300; color: var(--text-primary); }
+  .skill-n { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--silver-dim); }
+  .skill-track { height: 2px; background: rgba(200,216,228,0.14); }
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--emerald-light), var(--accent-edge));
+  }
+
+  /* ── EDU ── */
+  .edu-item {
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 1px solid rgba(30,122,71,0.4);
+  }
+  .edu-deg {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--silver);
+  }
+  .edu-school { font-size: 11.5px; font-weight: 300; color: var(--text-secondary); margin-top: 2px; }
+  .edu-yr { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--silver-dim); margin-top: 5px; letter-spacing: 0.1em; }
+
+  .hline { border: none; border-top: 1px solid var(--silver-line); margin: 22px 0; }
+
+  /* ── NOTABLE ── */
+  .notable {
+    background: rgba(8,13,20,0.5);
+    border: 1px solid var(--silver-line);
+    border-top: 2px solid var(--emerald-light);
+    padding: 14px 16px;
+  }
+  .notable-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    color: var(--silver-dim);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .notable-item {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-primary);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--silver-line);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .notable-item:last-child { border-bottom: none; }
+  .notable-item::before {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--emerald-bright);
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--silver-line);
+    padding: 12px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer span {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--silver-dim);
+  }
+
+  .rule-bottom {
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--emerald-bright) 0%,
+      var(--accent-edge) 40%,
+      var(--silver-bright) 60%,
+      var(--accent-edge) 75%,
+      transparent 100%
+    );
+  }
+
+  /* ── ACCESSIBILITY ── */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--emerald-bright);
+    color: var(--steel-bg);
+    padding: 10px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-transform: uppercase;
+    z-index: 9999;
+    transition: top 0.1s;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--emerald-bright);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="page">
+  <div class="edge-accent"></div>
+
+  <div class="rule-top"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+
+    <h1 class="name">
+      Jyrki Turunen
+      <span class="name-role">Senior UX Designer</span>
+    </h1>
+    <div class="header-bottom">
+      <div class="contact-strip">
+        <div class="contact-item">
+          <span class="c-label">Email</span>
+          <span class="c-val">jyrki.j.turunen@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <span class="c-label">Phone</span>
+          <span class="c-val">+358405056961</span>
+        </div>
+        <div class="contact-item">
+          <span class="c-label">LinkedIn</span>
+          <span class="c-val">linkedin.com/in/jyrkiturunen</span>
+        </div>
+        <div class="contact-item">
+          <span class="c-label">Location</span>
+          <span class="c-val">Tampere, Finland</span>
+        </div>
+      </div>
+      <div class="avail-badge">
+        <div class="avail-dot"></div>
+        Open to opportunities
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BODY -->
+  <main id="main-content">
+<div class="body">
+    <div class="main-col">
+
+      <div class="section">
+        <div class="sh"><div class="sh-mark"></div><h2>Profile</h2></div>
+        <p class="profile-p">UX designer with almost a decade of experience crafting user-centred digital products across consulting and in-house development environments. Comfortable at any point of the design process from early discovery to late-stage testing and analytics-driven feedback monitoring, with special expertise areas like gamification, accessibility and other bits and pieces picked up along the way.</p>
+      </div>
+
+      <div class="section">
+        <div class="sh"><div class="sh-mark"></div><h2>Experience</h2></div>
+
+        <div class="job">
+          <div class="job-top">
+            <span class="job-title">Senior UX Designer</span>
+            <span class="job-date">11/2023 — Present</span>
+          </div>
+          <div class="job-co">Visma &nbsp;·&nbsp; Helsinki, Finland</div>
+          <p class="job-p">Leading UX efforts within the M2 product, covering the full design process from research and discovery through to delivery. Actively contributing to organisation-level design initiatives, championing accessibility and continuous user involvement throughout the product development lifecycle. Occasionally facilitating design workshops for other teams across the organisation.</p>
+          <div class="tags">
+            <span class="tag">UX Design</span><span class="tag">Accessibility</span><span class="tag">Design Systems</span><span class="tag">Agile</span>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <span class="job-title">UX Designer</span>
+            <span class="job-date">02/2020 — 11/2023</span>
+          </div>
+          <div class="job-co">Visma &nbsp;·&nbsp; Helsinki, Finland</div>
+          <p class="job-p">Sole UX resource on the M2 product team, responsible for the full design process from research and discovery through to delivery. Established UX practice within the team from scratch, conducting user research, creating wireframes and prototypes, and collaborating closely with the development team. Mentored the team's first UX trainee during this period.</p>
+          <div class="tags">
+            <span class="tag">UX Design</span><span class="tag">UI Design</span><span class="tag">Research</span><span class="tag">Prototyping</span>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <span class="job-title">UX Designer</span>
+            <span class="job-date">07/2018 — 02/2020</span>
+          </div>
+          <div class="job-co">Bilot &nbsp;·&nbsp; Helsinki, Finland</div>
+          <p class="job-p">Worked as a UX designer in a consulting capacity across multiple client projects, delivering user research, interaction design, and usability testing for a range of digital services and business applications.</p>
+          <div class="tags">
+            <span class="tag">UX Design</span><span class="tag">UI Design</span><span class="tag">Consulting</span><span class="tag">Usability Testing</span>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <span class="job-title">Junior UX Designer</span>
+            <span class="job-date">04/2017 — 07/2018</span>
+          </div>
+          <div class="job-co">Bilot &nbsp;·&nbsp; Helsinki, Finland</div>
+          <p class="job-p">Supported senior designers across client engagements, contributing to wireframing, user flows, and interface design while developing skills in agile product delivery.</p>
+          <div class="tags">
+            <span class="tag">UX Design</span><span class="tag">Wireframing</span><span class="tag">UI Design</span><span class="tag">Agile</span>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <span class="job-title">Consultant Trainee</span>
+            <span class="job-date">04/2016 — 12/2016</span>
+          </div>
+          <div class="job-co">IBM &nbsp;·&nbsp; Helsinki, Finland</div>
+          <p class="job-p">Trainee role within IBM's consulting practice, gaining exposure to enterprise-scale project delivery and digital transformation initiatives.</p>
+          <div class="tags">
+            <span class="tag">Consulting</span><span class="tag">Enterprise</span>
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <span class="job-title">Project Worker &amp; Game Developer</span>
+            <span class="job-date">09/2015 — 03/2015</span>
+          </div>
+          <div class="job-co">Demola Tampere</div>
+          <p class="job-p">Contributed to innovation projects at Demola, including a game development role delivering a playable prototype in a multidisciplinary team setting.</p>
+          <div class="tags">
+            <span class="tag">Game Development</span><span class="tag">Prototyping</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SIDE -->
+    <div class="side-col">
+
+      <div class="section">
+        <div class="sh"><div class="sh-mark"></div><h2>Skills</h2></div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">UX Design</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:92%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">UI Design</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">User Research &amp; Usability Testing</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Accessibility</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Facilitation</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:78%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Video</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:65%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Gamification</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:55%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Social Media</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:50%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Training &amp; Education Design</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Systems Thinking</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-top"><span class="skill-name">Narrative &amp; Storytelling</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:78%"></div></div>
+        </div>
+      </div>
+
+      <hr class="hline">
+
+      <div class="section">
+        <div class="sh"><div class="sh-mark"></div><h2>Education</h2></div>
+        <div class="edu-item">
+          <div class="edu-deg">Master's in User Experience</div>
+          <div class="edu-school">Tampere University of Technology</div>
+          <div class="edu-yr">2017</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-deg">Graduation</div>
+          <div class="edu-school">Parola College</div>
+          <div class="edu-yr">2008</div>
+        </div>
+      </div>
+
+      <hr class="hline">
+
+      <div class="section">
+        <div class="sh"><div class="sh-mark"></div><h2>Languages</h2></div>
+        <div class="edu-item">
+          <div class="edu-deg">Finnish</div>
+          <div class="edu-school">Native</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-deg">English</div>
+          <div class="edu-school">Professional proficiency</div>
+        </div>
+      </div>
+        <div class="notable-title">Achievements</div>
+        <div class="notable-item">IxDF Certificate — Accessibility: Top 10% in class, 2025</div>
+        <div class="notable-item">Elsevier Hacks 2017, 2nd Place</div>
+        <div class="notable-item">International Tutor, 2012–2016</div>
+        <div class="notable-item">Club Officer @ TUT, 2013–2015</div>
+        <div class="notable-item">Finnish Game Jam Tampere 2014</div>
+        <div class="notable-item">Finnish Game Jam Tampere 2013</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Jyrki Turunen &nbsp;·&nbsp; 2025</span>
+    <span>References available on request</span>
+  </div>
+  <div class="rule-bottom"></div>
+
+</div>
+</body>
+</html>

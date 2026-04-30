@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio · Jyrki Turunen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel-bg:       #080d14;
+    --steel-surface:  #0c1420;
+    --steel-raised:   #101d2e;
+    --steel-blue:     #112238;
+    --steel-blue-m:   #163050;
+    --emerald-dark:   #0d2818;
+    --emerald:        #145230;
+    --emerald-light:  #1e7a47;
+    --emerald-bright: #34c478;
+    --silver:         #c8d8e4;
+    --silver-bright:  #e8f0f6;
+    --silver-dim:     #90aaba;
+    --silver-line:    rgba(200,216,228,0.18);
+    --silver-line-m:  rgba(200,216,228,0.35);
+    --text-primary:   #e4eef6;
+    --text-secondary: #a8c4d4;
+    --text-muted:     #7a9db0;
+    --accent-em:      #1e7a47;
+    --accent-edge:    #6ab8d8;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: #050a10;
+    font-family: 'Jost', sans-serif;
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  /* ── EDGE ACCENT ── */
+  .edge-accent {
+    position: fixed;
+    left: 0; top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg,
+      var(--emerald-bright) 0%,
+      var(--accent-edge) 40%,
+      var(--emerald) 70%,
+      transparent 100%
+    );
+    z-index: 100;
+  }
+
+  /* ── TOP RULE ── */
+  .rule-top {
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--emerald-bright) 0%,
+      var(--accent-edge) 40%,
+      var(--silver-bright) 60%,
+      var(--accent-edge) 75%,
+      transparent 100%
+    );
+    position: sticky;
+    top: 0;
+    z-index: 99;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 3px;
+    z-index: 98;
+    background: rgba(8,13,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--silver-line);
+    padding: 0 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 52px;
+  }
+
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--silver-bright);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--silver-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--emerald-bright); }
+
+  .nav-cv-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--emerald-bright);
+    text-decoration: none;
+    border: 1px solid rgba(52,196,120,0.4);
+    padding: 5px 14px;
+    background: rgba(13,40,24,0.4);
+    transition: background 0.2s;
+  }
+
+  .nav-cv-link:hover { background: rgba(13,40,24,0.7); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    background: linear-gradient(150deg,
+      var(--steel-blue) 0%,
+      var(--emerald-dark) 55%,
+      var(--steel-bg) 100%
+    );
+    padding: 90px 52px 80px;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(176,190,200,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(176,190,200,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 55% 65% at 80% 50%, rgba(30,122,71,0.14) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    color: var(--silver-dim);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--accent-edge);
+  }
+
+  h1.hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 0.92;
+    color: var(--silver-bright);
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+
+  .hero-role {
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+    font-size: 13px;
+    letter-spacing: 0.38em;
+    color: var(--accent-edge);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero-bio {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-primary);
+    border-left: 2px solid var(--emerald-light);
+    padding-left: 18px;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--steel-bg);
+    background: var(--emerald-bright);
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-secondary {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-edge);
+    background: transparent;
+    border: 1px solid rgba(106,184,216,0.4);
+    padding: 12px 24px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--emerald-light), var(--accent-edge), transparent);
+    opacity: 0.4;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section-wrap {
+    padding: 64px 52px;
+  }
+
+  .section-wrap + .section-wrap {
+    border-top: 1px solid var(--silver-line);
+  }
+
+  .section-wrap.alt-bg {
+    background: rgba(8,13,20,0.45);
+  }
+
+  /* ── SECTION HEADING ── */
+  .sh {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .sh-mark {
+    position: relative;
+    width: 10px; height: 10px;
+    flex-shrink: 0;
+  }
+  .sh-mark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-top: 2px solid var(--emerald-bright);
+    border-left: 2px solid var(--emerald-bright);
+  }
+  .sh-mark::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--accent-edge);
+  }
+
+  .sh h2 {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--silver-dim);
+    font-weight: 400;
+  }
+
+  .sh::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--silver-line);
+  }
+
+  /* ── PROJECT GRID ── */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--steel-raised);
+    border: 1px solid var(--silver-line);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* top accent per card */
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--emerald-light), var(--accent-edge));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .project-card:hover::before { opacity: 1; }
+
+  .card-body {
+    padding: 22px 24px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .card-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    color: var(--emerald-bright);
+    text-transform: uppercase;
+  }
+
+  .card-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--silver-bright);
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    line-height: 1.15;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    flex: 1;
+    margin-bottom: 16px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 18px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 9px;
+    color: var(--accent-edge);
+    border: 1px solid rgba(106,184,216,0.25);
+    text-transform: uppercase;
+    background: rgba(106,184,216,0.04);
+  }
+
+  .card-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--emerald-bright);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    align-self: flex-start;
+    border-bottom: 1px solid rgba(52,196,120,0.3);
+    padding-bottom: 2px;
+  }
+
+  .card-link::after { content: '→'; }
+
+  .card-link + .card-link {
+    margin-top: 8px;
+  }
+
+  .card-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px 24px;
+    margin-top: 6px;
+  }
+
+  .card-links .card-link {
+    margin-top: 0;
+    align-self: start;
+    justify-self: start;
+  }
+
+  /* ── FEATURED PROJECT (full-width) ── */
+  .project-featured {
+    border: 1px solid var(--silver-line);
+    background: var(--steel-raised);
+    margin-bottom: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--emerald-bright), var(--accent-edge));
+  }
+
+  .featured-body {
+    padding: 36px 36px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--silver-line);
+  }
+
+  .featured-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    color: var(--emerald-bright);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .featured-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--silver-bright);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .featured-desc {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+  }
+
+  /* ── SKILLS STRIP ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .skill-group { }
+
+  .skill-group-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--emerald-bright);
+    margin-bottom: 14px;
+  }
+
+  .skill-row { margin-bottom: 12px; }
+
+  .skill-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+
+  .skill-name { font-size: 13px; font-weight: 300; color: var(--text-primary); }
+
+  .skill-n {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--silver-dim);
+  }
+
+  .skill-track { height: 2px; background: rgba(200,216,228,0.1); }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--emerald-light), var(--accent-edge));
+  }
+
+  /* ── CONTACT STRIP ── */
+  .contact-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .contact-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--silver-bright);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .contact-sub {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--silver-line);
+  }
+
+  .contact-row:last-child { border-bottom: none; }
+
+  .c-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: var(--silver-dim);
+    text-transform: uppercase;
+  }
+
+  .c-val {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--silver);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--silver-line);
+    padding: 16px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--silver-dim);
+  }
+
+  .rule-bottom {
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--emerald-bright) 0%,
+      var(--accent-edge) 40%,
+      var(--silver-bright) 60%,
+      var(--accent-edge) 75%,
+      transparent 100%
+    );
+  }
+
+  /* ── AVAILABILITY PILL ── */
+  .avail-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--emerald-bright);
+    border: 1px solid rgba(52,196,120,0.4);
+    padding: 5px 14px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(13,40,24,0.4);
+  }
+
+  .avail-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--emerald-bright);
+  }
+
+  /* ── ACCESSIBILITY ── */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--emerald-bright);
+    color: var(--steel-bg);
+    padding: 10px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-transform: uppercase;
+    z-index: 9999;
+    transition: top 0.1s;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--emerald-bright);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+
+<div class="edge-accent"></div>
+<div class="rule-top"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Jyrki Turunen</span>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#creative">Creative</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="CV_Jyrki_Turunen.html" class="nav-cv-link">View CV</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Portfolio</div>
+    <h1 class="hero-name">Jyrki Turunen</h1>
+    <p class="hero-role">Senior UX Designer</p>
+    <p class="hero-bio">User experience design wasn't really on my radar until a few years into my degree. That's because I didn't know what it was that had always gripped me so when I picked up a video game controller or got engrossed in a book. Ever since I was 7 and got Super Nintendo with Super Mario World for Christmas I knew that technology was my calling. I even knew where I would study. I made it happen and realized that it was the EXPERIENCE of those things I loved that called out to me, setting my path forevermore. That same fire still leads me to fight for the users when everyone else talks about customers, to stand for accessibility when no one else does and to help my colleagues when they need it.</p>
+    <p class="hero-bio" style="margin-top: 16px; font-style: italic;">"No cause is lost if there's even one fool left to fight for it." — <span style="font-style: normal; font-size: 0.9em; opacity: 0.8;">Elizabeth Swann, Pirates of the Caribbean: At World's End</span></p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+      <div class="avail-badge"><div class="avail-dot"></div>Open to opportunities</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WORK -->
+<main id="main-content">
+<div id="work" class="section-wrap">
+  <div class="sh"><div class="sh-mark"></div><h2>Selected Work</h2></div>
+
+  <!-- VISMA GROUP -->
+  <div class="sh" style="margin-bottom: 16px;"><h2 style="color: var(--silver); font-size: 9px; letter-spacing: 0.22em;">Visma &nbsp;·&nbsp; 2020–Present</h2></div>
+
+  <div class="project-grid" style="margin-bottom: 40px;">
+
+    <div class="project-card" style="grid-column: 1 / -1;">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">UX Design &amp; Research &nbsp;·&nbsp; Visma</span>
+          <span class="card-year">2020–Present</span>
+        </div>
+        <div class="card-title">UX — Building a Practice from Scratch</div>
+        <p class="card-desc">Joined the M2 product team in 2020 as its first ever UX resource, inheriting a product with 20+ years of history and no prior UX investment. With the product owner's support and considerable freedom — and responsibility — the first task was to find out what users actually thought.</p>
+        <p class="card-desc" style="margin-top: 10px;">The first research cycle (2020) involved a questionnaire reaching 200+ respondents, 12 user interviews, a competitor analysis, and a four-person heuristic evaluation of a core product flow. The resulting data was synthesised into empathy maps for all interviewees, four personas, and journey maps built in collaborative sessions with development team members and an external designer. All findings were presented to the wider product team and made available as living documents to inform design priorities.</p>
+        <p class="card-desc" style="margin-top: 10px;">The years between cycles were spent translating research into designs — wireframing first in Adobe XD, later Figma — while managing the full UX workload of the product solo. In 2022, a UX trainee position was championed and secured, enabling a second research cycle: 300+ survey responses, ~10 interviews, and for the first time observed task completion sessions and wireframe testing with real users. Results were compared against 2020 data, providing the first longitudinal view of how the product and its users had evolved. Around the same time the first accessibility audit of the browser product was completed, and growing investment in the mobile app added further scope to the work.</p>
+        <p class="card-desc" style="margin-top: 10px;">By end of 2023, access to Amplitude enabled a new layer of insight. A UX metrics dashboard was built from scratch, and from 2024 onwards a monthly UX metrics report has been produced and reviewed with the product owner and product manager in bi-weekly meetings — bringing quantitative usage data into the conversation alongside the qualitative research.</p>
+        <p class="card-desc" style="margin-top: 10px;">In 2025, a third research cycle was initiated with a new trainee — again championed and recruited from start to finish, including personally reviewing all 200+ applications. This cycle introduced a user panel: a repository of willing participants available for ongoing tests and prototype feedback, addressing a long-standing gap in the team's ability to get fast user input. Data from all three cycles now provides a multi-year longitudinal picture of user needs and product evolution. The 2025 trainee has since remained with the team and is being actively mentored.</p>
+        <div class="card-tags">
+          <span class="tag">UX Research</span>
+          <span class="tag">User Interviews</span>
+          <span class="tag">Personas</span>
+          <span class="tag">Journey Mapping</span>
+          <span class="tag">Usability Testing</span>
+          <span class="tag">Longitudinal Research</span>
+          <span class="tag">Data Analytics</span>
+          <span class="tag">Mentoring</span>
+          <span class="tag">Product Strategy</span>
+        </div>
+        <div class="card-links">
+          <a href="Work_projects/UX/Notes.png" class="card-link">View Research Notes</a>
+          <a href="Work_projects/UX/Piirakat.png" class="card-link">View Survey Data</a>
+          <a href="Work_projects/UX/Yleisarvosana.png" class="card-link">View Overall Ratings</a>
+          <a href="Work_projects/UX/Main_user.png" class="card-link">View Persona — Power User</a>
+          <a href="Work_projects/UX/End_user.png" class="card-link">View Persona — End User</a>
+          <a href="Work_projects/UX/Empathy_maps.png" class="card-link">View Empathy Maps</a>
+          <a href="Work_projects/UX/Main_user_jm.png" class="card-link">View Journey Map — Power User</a>
+          <a href="Work_projects/UX/End_user_jm.png" class="card-link">View Journey Map — End User</a>
+          <a href="Work_projects/UX/Amplitude.png" class="card-link">View UX Metrics Dashboard</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Accessibility &nbsp;·&nbsp; Visma</span>
+          <span class="card-year">2020–Present</span>
+        </div>
+        <div class="card-title">Accessibility Education &amp; Advocacy</div>
+        <p class="card-desc">A self-initiated accessibility programme built from scratch together with a colleague. We created a comprehensive training package covering accessibility fundamentals and delivered it across all product teams in the organisation — roughly 12–15 three-hour sessions in both Finnish and English, receiving strong feedback throughout. Alongside the training, we brought in an external auditor to review our products and produce accessibility reports against legal requirements. We also founded an accessibility champions movement, embedding 1–2 advocates in each product team to keep accessibility part of the development conversation going forward. To further deepen the expertise behind this work, I completed the IxDF course "Accessibility: How to Design for All" in September 2025, graduating in the top 10% of the class.</p>
+        <div class="card-tags">
+          <span class="tag">Accessibility</span>
+          <span class="tag">Training</span>
+          <span class="tag">Advocacy</span>
+          <span class="tag">WCAG</span>
+          <span class="tag">Organisational Change</span>
+          <span class="tag">IxDF</span>
+        </div>
+        <a href="Work_projects/Accessibility/Education_package.pdf" class="card-link">View Education Package</a>
+        <a href="Work_projects/Accessibility/Course_certificate.jpg" class="card-link">View Course Certificate</a>
+        <a href="https://ixdf.org/courses/accessibility-in-practice?r=jyrki-turunen" class="card-link" target="_blank" rel="noopener noreferrer">View IxDF Course</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Accessibility &nbsp;·&nbsp; Visma</span>
+          <span class="card-year">2024</span>
+        </div>
+        <div class="card-title">Colour &amp; Contrast — Deep Dive</div>
+        <p class="card-desc">A self-initiated deep dive into colour theory and contrast, driven by personal curiosity and a desire to strengthen the accessibility initiative. The resulting presentation covers colour from first principles — what colour actually is — through to a detailed walkthrough of the WCAG contrast criteria. Presented multiple times across company meetings to strong feedback, and invited to present to the design system group at a wider Visma level.</p>
+        <div class="card-tags">
+          <span class="tag">Accessibility</span>
+          <span class="tag">Colour Theory</span>
+          <span class="tag">WCAG</span>
+          <span class="tag">Contrast</span>
+          <span class="tag">Presentation</span>
+        </div>
+        <a href="Work_projects/Accessibility/UA_Color_and_Contrast.pdf" class="card-link">View Presentation</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">UI Design &nbsp;·&nbsp; Visma</span>
+          <span class="card-year">2020–Present</span>
+        </div>
+        <div class="card-title">UI Design — Wireframes &amp; Layouts</div>
+        <p class="card-desc">A substantial body of UI work spanning the full time at Visma — creating new screens and flows, modifying existing ones, and refreshing legacy designs as functionality migrates from older systems to the current product. Work covers both browser and mobile environments and requires careful adherence to multiple coexisting design systems, demanding precision and a strong eye for consistency across a complex product landscape. UI design is the baseline of this profession and, increasingly, an area where AI will take on the heavy lifting — with designers verifying, refining and owning the last 10–20% rather than starting from a blank canvas. The experience here spans a decade — and if a prospective employer wants to see the work in action, I'm happy to put together an example flow on whatever brief they have in mind.</p>
+        <div class="card-tags">
+          <span class="tag">UI Design</span>
+          <span class="tag">Wireframing</span>
+          <span class="tag">Mobile</span>
+          <span class="tag">Web</span>
+          <span class="tag">Design Systems</span>
+          <span class="tag">Figma</span>
+        </div>
+        <a href="Work_projects/UI/Mobiili.png" class="card-link">View Mobile Wireframes</a>
+        <a href="Work_projects/UI/Web.png" class="card-link">View Web Wireframes</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BILOT GROUP -->
+  <div class="sh" style="margin-bottom: 16px;"><h2 style="color: var(--silver); font-size: 9px; letter-spacing: 0.22em;">Bilot &nbsp;·&nbsp; 2017–2020</h2></div>
+
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">UX Design &nbsp;·&nbsp; Bilot</span>
+          <span class="card-year">2018–2019</span>
+        </div>
+        <div class="card-title">Construction_Company Website Redesign</div>
+        <p class="card-desc">A website redesign project for a construction company client. Joined mid-project and refined the existing wireframe blueprint where needed. Conducted user interviews and created the full persona set together with a fellow designer, forming the research foundation for the redesign.</p>
+        <div class="card-tags">
+          <span class="tag">UX Design</span>
+          <span class="tag">Wireframing</span>
+          <span class="tag">User Interviews</span>
+          <span class="tag">Personas</span>
+        </div>
+        <a href="Work_projects/Construction_Company/Interviews-and-Personas-results.pdf" class="card-link">View Presentation</a>
+        <a href="Work_projects/Construction_Company/Wireframes.pdf" class="card-link">View Wireframes</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">UX Research &nbsp;·&nbsp; Bilot</span>
+          <span class="card-year">2018–2019</span>
+        </div>
+        <div class="card-title">Housing_Company Software — UX Research</div>
+        <p class="card-desc">A qualitative UX research project combining observation sessions and user interviews to evaluate an enterprise software product used by a housing company client. Conducted with end users across multiple office locations, the study mapped daily usage patterns, pain points, and mental models. Findings were analysed using affinity mapping and resulted in a prioritised list of development recommendations covering onboarding, in-app guidance, information architecture, loading feedback, and terminology.</p>
+        <div class="card-tags">
+          <span class="tag">UX Research</span>
+          <span class="tag">User Interviews</span>
+          <span class="tag">Observation</span>
+          <span class="tag">Affinity Mapping</span>
+          <span class="tag">Enterprise</span>
+        </div>
+        <a href="Work_projects/Housing_Company/Observation_and_interview_results.pdf" class="card-link">View Research Report</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">UX &amp; UI Design &nbsp;·&nbsp; Bilot</span>
+          <span class="card-year">2018–2019</span>
+        </div>
+        <div class="card-title">Packaging_Company — Internal Tool Redesign</div>
+        <p class="card-desc">A full UX and UI redesign of a complex internal software tool used by a packaging company to manage blade specifications across factory machines. The goal was to modernise the system while keeping it familiar enough for existing users to transition smoothly. Wireframes were iterated extensively with the client's representatives through multiple rounds until a final design was agreed upon, followed by visual mockups demonstrating the finished look and feel. The software entered development based on these designs.</p>
+        <div class="card-tags">
+          <span class="tag">UX Design</span>
+          <span class="tag">UI Design</span>
+          <span class="tag">Wireframing</span>
+          <span class="tag">Internal Tools</span>
+          <span class="tag">Iterative Design</span>
+        </div>
+        <a href="Work_projects/Packaging_Company/Wireframes.pdf" class="card-link">View Wireframes</a>
+        <a href="Work_projects/Packaging_Company/Visual_Main_view_Filled.png" class="card-link">View Visual — Filled State</a>
+        <a href="Work_projects/Packaging_Company/Visual_Main_view_New.png" class="card-link">View Visual — New Entry State</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LEGO SCRUM GROUP -->
+  <div class="sh" style="margin-top: 40px; margin-bottom: 16px;"><h2 style="color: var(--silver); font-size: 9px; letter-spacing: 0.22em;">Lego Scrum &nbsp;·&nbsp; Bilot &amp; Visma</h2></div>
+
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Facilitation &nbsp;·&nbsp; Bilot &amp; Visma</span>
+          <span class="card-year">2017–Present</span>
+        </div>
+        <div class="card-title">Lego Scrum Workshops</div>
+        <p class="card-desc">Designed and facilitated Scrum training workshops using Lego as the hands-on medium, run at both Bilot and Visma. Participants — typically a mix of developers, designers and other staff — were cast as the best and brightest selected for a Mars colony project, tasked with building a functioning city using Scrum methodology in real time. Sessions ran 2–3 hours: the first 30–60 minutes covering Scrum fundamentals, the remainder putting it into practice through timed sprints with planning, development and review phases. One facilitator ran the session while another played the project manager role.</p>
+        <div class="card-tags">
+          <span class="tag">Facilitation</span>
+          <span class="tag">Scrum</span>
+          <span class="tag">Agile</span>
+          <span class="tag">Workshop Design</span>
+          <span class="tag">Training</span>
+        </div>
+        <a href="Work_projects/Lego_Scrum/Lego_Scrum_images.pdf" class="card-link">View Photos</a>
+        <a href="Work_projects/Lego_Scrum/Lego_Scrum_training.pdf" class="card-link">View Slide Deck</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CREATIVE -->
+<div id="creative" class="section-wrap alt-bg">
+  <div class="sh"><div class="sh-mark"></div><h2>Creative Work</h2></div>
+
+  <div class="project-grid">
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Fiction &nbsp;·&nbsp; Competition Entry</span>
+          <span class="card-year">NYC Midnight</span>
+        </div>
+        <div class="card-title">Sword of Damocles</div>
+        <p class="card-desc">Written for the NYC Midnight Short Story Challenge. Groups were assigned three mandatory prompts — mine were <em>earthquake</em>, <em>jack-of-all-trades</em>, and <em>blaming</em> — and had to produce a story under 400 words. A janitor trapped in a collapsed building holds on for rescue while a worse disaster looms above him. Placed in the top 10 of a group of 30–40, advancing to the next round.</p>
+        <div class="card-tags">
+          <span class="tag">Short Fiction</span>
+          <span class="tag">Competition</span>
+          <span class="tag">400 Words</span>
+          <span class="tag">Top 10</span>
+        </div>
+        <a href="Creative/Sword_of_Damocles.pdf" class="card-link">Read Story</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Fiction &nbsp;·&nbsp; Personal</span>
+          <span class="card-year">Prose</span>
+        </div>
+        <div class="card-title">The Door</div>
+        <p class="card-desc">A personal piece written when the idea demanded to exist. A narrator encounters a mysterious door in an impossible room, where light and darkness are living forces and a cryptic figure offers no easy answers. Atmospheric, philosophical, and quietly unsettling — it ends where it begins.</p>
+        <div class="card-tags">
+          <span class="tag">Short Fiction</span>
+          <span class="tag">Atmospheric</span>
+          <span class="tag">Philosophical</span>
+        </div>
+        <a href="Creative/The_Door.pdf" class="card-link">Read Story</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Fiction &nbsp;·&nbsp; Personal</span>
+          <span class="card-year">Sci-Fi</span>
+        </div>
+        <div class="card-title">Black Library Submission</div>
+        <p class="card-desc">Written as a submission for Black Library's open call for stories — the publishing arm of Games Workshop responsible for Warhammer fiction. A tense diplomatic encounter with alien creatures goes catastrophically wrong, until an unexpected intervention reveals that not everything in the room is what it seems. Dark sci-fi with sharp dialogue and a satisfying reveal.</p>
+        <div class="card-tags">
+          <span class="tag">Short Fiction</span>
+          <span class="tag">Sci-Fi</span>
+          <span class="tag">Dark</span>
+        </div>
+        <a href="Creative/Black_Library_submission.pdf" class="card-link">Read Story</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Hobby &nbsp;·&nbsp; Game Design</span>
+          <span class="card-year">Personal project</span>
+        </div>
+        <div class="card-title">End of Time — Character Personas</div>
+        <p class="card-desc">A personal project creating visual character sheets for protagonists from a collaborative sci-fi story universe. Each sheet combines portrait art, lore, personality traits, and RPG-style class abilities — a UX designer's instinct applied to worldbuilding. The universe has an unrealised game concept behind it.</p>
+        <div class="card-tags">
+          <span class="tag">Character Design</span>
+          <span class="tag">Visual Layout</span>
+          <span class="tag">Worldbuilding</span>
+          <span class="tag">Game Concept</span>
+        </div>
+        <a href="Creative/End_of_Time_personas.pdf" class="card-link">View Personas</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-type">Motion Graphics &nbsp;·&nbsp; Personal</span>
+          <span class="card-year">Premiere Pro</span>
+        </div>
+        <div class="card-title">Dark Angels Logo — Motion Graphics</div>
+        <p class="card-desc">A short personal motion graphics experiment using the Saber plugin in Premiere Pro. Animates the Dark Angels chapter symbol from Warhammer 40,000 with lighting effects. 12 seconds.</p>
+        <div class="card-tags">
+          <span class="tag">Motion Graphics</span>
+          <span class="tag">Premiere Pro</span>
+          <span class="tag">Saber</span>
+          <span class="tag">Warhammer 40K</span>
+        </div>
+        <a href="Creative/Dark_Angels_logo.mp4" class="card-link">Watch</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div id="skills" class="section-wrap alt-bg">
+  <div class="sh"><div class="sh-mark"></div><h2>Skills</h2></div>
+  <div class="skills-grid" style="grid-template-columns: 1fr 1fr;">
+
+    <div class="skill-group">
+      <div class="skill-group-label">Design &amp; Research</div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">UX Design</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:92%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">UI Design</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:82%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">User Research &amp; Usability Testing</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">Accessibility</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">Facilitation</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:78%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">Training &amp; Education Design</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label">Specialities</div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">Narrative &amp; Storytelling</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:78%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">Systems Thinking</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:82%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">Gamification</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:55%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">Video</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:65%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">Social Media</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:50%"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="section-wrap">
+  <div class="sh"><div class="sh-mark"></div><h2>Contact</h2></div>
+  <div class="contact-section">
+    <div>
+      <div class="contact-heading">Let's create experiences people will remember.</div>
+      <p class="contact-sub">Open to various design roles and digital challenges where craft matters.</p>
+      <div class="avail-badge"><div class="avail-dot"></div>Open to opportunities</div>
+    </div>
+    <div class="contact-details">
+      <div class="contact-row">
+        <span class="c-label">Email</span>
+        <span class="c-val">jyrki.j.turunen@gmail.com</span>
+      </div>
+      <div class="contact-row">
+        <span class="c-label">Phone</span>
+        <span class="c-val">+358405056961</span>
+      </div>
+      <div class="contact-row">
+        <span class="c-label">LinkedIn</span>
+        <span class="c-val">linkedin.com/in/jyrkiturunen</span>
+      </div>
+      <div class="contact-row">
+        <span class="c-label">Location</span>
+        <span class="c-val">Tampere, Finland</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer>
+  <span>Jyrki Turunen &nbsp;·&nbsp; 2025</span>
+  <span>Designed by Jyrki Turunen &nbsp;·&nbsp; Assisted by Claude</span>
+</footer>
+<div class="rule-bottom"></div>
+
+</body>
+</html>
